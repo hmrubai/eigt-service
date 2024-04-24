@@ -35,4 +35,14 @@ class CategoryController extends Controller
         }
     }
 
+    public function update(CategoryRequest $request, $id)
+    {
+        try {
+            $category = $this->categoryService->updateCategory($request, $id);
+            return $this->successResponse($category, 'Class updated successfully', Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage(), 'Something went wrong', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
