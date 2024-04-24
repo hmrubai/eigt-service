@@ -11,4 +11,5 @@ Route::middleware([JWTMiddleware::class])->group(function () {
     Route::get('class', [CategoryController::class, 'index'])->name('category.index');
     Route::post('class', [CategoryController::class, 'store'])->name('category.store');
     Route::post('class/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('class/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 });

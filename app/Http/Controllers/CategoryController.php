@@ -45,4 +45,15 @@ class CategoryController extends Controller
         }
     }
 
+    public function destroy(int $id)
+    {
+        try {
+            $this->categoryService->deleteCategory($id);
+
+            return $this->successResponse([], 'Class deleted successfully', Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage(), 'something went wrong', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

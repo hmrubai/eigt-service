@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-
 use App\Traits\HelperTrait;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -92,5 +91,14 @@ class CategoryService
 
         $category->update($category_data);
         return $category;
+    }
+
+    public function deleteCategory(int $id)
+    {
+        try {
+            return Category::findOrFail($id)->delete();
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 }
