@@ -125,12 +125,12 @@ class ChapterService
     public function deleteChapter(int $id)
     {
         try {
-            $chapter = Subject::findOrFail($id);
+            $chapter = Chapter::findOrFail($id);
             if($chapter->thumbnail){
                 $this->deleteFile($chapter->thumbnail);
             }
 
-            return Subject::findOrFail($id)->delete();
+            return Chapter::findOrFail($id)->delete();
         } catch (\Exception $e) {
             throw $e;
         }
