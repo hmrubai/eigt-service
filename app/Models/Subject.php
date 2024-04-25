@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Subject extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name_bn',
+        'name_en' ,
+        'category_id',
+        'thumbnail',
+        'status',
+        'created_by',
+        'deleted_at'
+    ];
+
+    protected $casts = [
+        'status' => 'boolean',
+    ];
 }

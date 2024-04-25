@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Middleware\TrustProxies;
 
 class SubjectRequest extends FormRequest
 {
@@ -23,7 +22,9 @@ class SubjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name_bn' => 'required',
+            'class_id' => 'required',
+            'status'  => 'integer'
         ];
     }
 }
