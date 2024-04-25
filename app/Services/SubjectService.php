@@ -94,7 +94,10 @@ class SubjectService
 
         if($request->thumbnail){
             $thumbnail = $this->fileUpload($request, 'thumbnail', 'subject_thumbnail');
-            $this->deleteFile($subject->thumbnail);
+            if($subject->thumbnail){
+                $this->deleteFile($subject->thumbnail);
+            }
+
             $subject_data = [
                 'name_bn' => $request->name_bn,
                 'name_en' => $request->name_en,
@@ -113,7 +116,9 @@ class SubjectService
     {
         try {
             $subject = Subject::findOrFail($id);
-            $this->deleteFile($subject->thumbnail);
+            if($subject->thumbnail){
+                $this->deleteFile($subject->thumbnail);
+            }
 
             return Subject::findOrFail($id)->delete();
         } catch (\Exception $e) {
