@@ -42,4 +42,14 @@ trait HelperTrait
 
         return $file_url;
     }
+
+    protected function deleteFile($file)
+    {
+        $image_path = public_path('uploads/'.$file);
+        if (file_exists($image_path)) {
+            unlink($image_path);
+        }
+
+        return true;
+    }
 }

@@ -79,7 +79,7 @@ class CategoryService
 
         if($request->thumbnail){
             $thumbnail = $this->fileUpload($request, 'thumbnail', 'class_thumbnail');
-
+            $this->deleteFile($category->thumbnail);
             $category_data = [
                 'name_bn' => $request->name_bn,
                 'name_en' => $request->name_en,
@@ -96,6 +96,9 @@ class CategoryService
     public function deleteCategory(int $id)
     {
         try {
+            $category = Category::findOrFail($id);
+            $this->deleteFile($category->thumbnail);
+
             return Category::findOrFail($id)->delete();
         } catch (\Exception $e) {
             throw $e;
