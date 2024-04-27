@@ -18,7 +18,7 @@ class CategoryService
 
     public function allCategory(): mixed
     {
-        $category = Category::get();
+        $category = Category::where('status', 1)->get();
         return $category;
     }
 
