@@ -55,6 +55,7 @@ class SubjectService
             $subject_data = [
                 'name_bn' => $request->name_bn,
                 'name_en' => $request->name_en,
+                'subject_code' => $request->subject_code,
                 'category_id' => $request->class_id,
                 'thumbnail' => $thumbnail ?? '',
                 'status' => is_null($request->status) ? 0 : $request->status,
@@ -87,6 +88,7 @@ class SubjectService
         $subject_data = [
             'name_bn' => $request->name_bn,
             'name_en' => $request->name_en,
+            'subject_code' => $request->subject_code,
             'category_id' => $request->class_id,
             'status' => is_null($request->status) ? 0 : $request->status,
             'created_by' => $request->jwt_user['id'] ?? 1,
@@ -101,6 +103,7 @@ class SubjectService
             $subject_data = [
                 'name_bn' => $request->name_bn,
                 'name_en' => $request->name_en,
+                'subject_code' => $request->subject_code,
                 'category_id' => $request->class_id,
                 'thumbnail' => $thumbnail ?? '',
                 'status' => is_null($request->status) ? 0 : $request->status,

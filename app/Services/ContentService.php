@@ -80,14 +80,15 @@ class ContentService
             $content_data = [
                 'name_bn' => $request->name_bn,
                 'name_en' => $request->name_en,
+                'description' => $request->description,
                 'category_id' => $request->class_id,
                 'subject_id' => $request->subject_id,
                 'chapter_id' => $request->chapter_id,
                 'raw_file' => $raw_file ?? '',
                 'thumbnail' => $thumbnail ?? '',
-                'transcoded_file_path' => null,
-                'compressed_file_path' => null,
-                'content_type' => $request->content_type,
+                'transcoded_file_path' => "https://bacbonschool.s3.ap-south-1.amazonaws.com/uploads/e-Teachers_Guide/Class_Five/English/The_Liberation_War_Museum/lectures/1410135322001/index.m3u8",
+                'compressed_file_path' => "https://media.bacbonltd.net/videos/JICF/Class_Five/English/1410135322001.mp4",
+                'content_type' => $request->content_type ?? 'Video',
                 'status' => is_null($request->status) ? 0 : $request->status,
                 'created_by' => $request->jwt_user['id'] ?? 1,
             ];

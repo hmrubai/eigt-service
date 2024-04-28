@@ -12,6 +12,7 @@ class Content extends Model
     protected $fillable = [
         'name_bn',
         'name_en' ,
+        'description',
         'category_id',
         'subject_id',
         'chapter_id',

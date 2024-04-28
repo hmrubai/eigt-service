@@ -6,6 +6,7 @@ use App\Traits\HelperTrait;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Subject;
+use App\Models\Content;
 use App\Models\Chapter;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -27,6 +28,11 @@ class ChapterService
         ->leftJoin('subjects', 'subjects.id', 'chapters.subject_id')
         ->where('chapters.status', 1)
         ->get();
+
+        foreach ($chapter as $item) {
+            $item->content = Content::where('status', 1)->get();
+        }
+
         return $chapter;
     }
 
@@ -39,6 +45,11 @@ class ChapterService
         ->where('chapters.status', 1)
         ->where('chapters.subject_id', $subject_id)
         ->get();
+        
+        foreach ($chapter as $item) {
+            $item->content = Content::where('status', 1)->get();
+        }
+
         return $chapter;
     }
 

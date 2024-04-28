@@ -12,6 +12,7 @@ class Subject extends Model
     protected $fillable = [
         'name_bn',
         'name_en' ,
+        'subject_code',
         'category_id',
         'thumbnail',
         'status',

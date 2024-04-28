@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\ContentController;
 use App\Http\Middleware\JWTMiddleware;
 
 Route::middleware([JWTMiddleware::class])->group(function () 
@@ -30,4 +31,11 @@ Route::middleware([JWTMiddleware::class])->group(function ()
     Route::post('chapter/{id}', [ChapterController::class, 'update'])->name('chapter.update');
     Route::delete('chapter/{id}', [ChapterController::class, 'destroy'])->name('chapter.destroy');
     Route::post('chapter', [ChapterController::class, 'store'])->name('chapter.store');
+
+    // Chapter routes
+    Route::get('content', [ContentController::class, 'index'])->name('content.index');
+    Route::get('content-list-by-chapter-id/{chapter_id}', [ContentController::class, 'contentListByChapter'])->name('content.contentListByChapter');
+    //Route::post('chapter/{id}', [ContentController::class, 'update'])->name('content.update');
+    Route::delete('content/{id}', [ContentController::class, 'destroy'])->name('content.destroy');
+    Route::post('content', [ContentController::class, 'store'])->name('content.store');
 });
