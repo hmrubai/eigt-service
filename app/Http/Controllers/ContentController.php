@@ -36,9 +36,6 @@ class ContentController extends Controller
 
     public function store(ContentRequest $request)
     {
-        return "OK";
-        dd();
-
         try {
             $content = $this->contentService->saveContent($request);
             return $this->successResponse($content, 'Content created successfully', Response::HTTP_OK);
