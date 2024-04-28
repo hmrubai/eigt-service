@@ -32,10 +32,11 @@ Route::middleware([JWTMiddleware::class])->group(function ()
     Route::delete('chapter/{id}', [ChapterController::class, 'destroy'])->name('chapter.destroy');
     Route::post('chapter', [ChapterController::class, 'store'])->name('chapter.store');
 
-    // Chapter routes
-    Route::get('content', [ContentController::class, 'index'])->name('content.index');
+    // Content routes
     Route::get('content-list-by-chapter-id/{chapter_id}', [ContentController::class, 'contentListByChapter'])->name('content.contentListByChapter');
-    //Route::post('chapter/{id}', [ContentController::class, 'update'])->name('content.update');
+    // Route::post('chapter/{id}', [ContentController::class, 'update'])->name('content.update');
     Route::delete('content/{id}', [ContentController::class, 'destroy'])->name('content.destroy');
-    Route::post('content', [ContentController::class, 'store'])->name('content.store');
+    Route::post('content-upload', [ContentController::class, 'store']);
+    Route::get('content', [ContentController::class, 'index']);
+
 });

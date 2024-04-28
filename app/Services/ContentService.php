@@ -74,7 +74,7 @@ class ContentService
 
         try {
 
-            $thumbnail = $this->fileUpload($request, 'raw_file', 'raw_file');
+            $raw_file = $this->fileUpload($request, 'raw_file', 'raw_file');
             $thumbnail = $this->fileUpload($request, 'thumbnail', 'content_thumbnail');
 
             $content_data = [
@@ -93,7 +93,7 @@ class ContentService
                 'created_by' => $request->jwt_user['id'] ?? 1,
             ];
 
-            $inserted_data = Chapter::create($content_data);
+            $inserted_data = Content::create($content_data);
 
             DB::commit();
             return $inserted_data;
@@ -106,7 +106,7 @@ class ContentService
     public function deleteContent(int $id)
     {
         try {
-            $content = Chapter::findOrFail($id);
+            $content = Content::findOrFail($id);
             if($content->thumbnail){
                 $this->deleteFile($content->thumbnail);
             }
