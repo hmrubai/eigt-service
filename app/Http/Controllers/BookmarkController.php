@@ -22,6 +22,13 @@ class BookmarkController extends Controller
 
     public function store(BookmarkRequest $request)
     {
+        $bookmark = Bookmark::where("user_id", $request->jwt_user['id'])->where("content_id", $request->content_id)->first();
+
+        if (!empty($bookmark)) {
+            $bookmark->delete();
+            return $this->successResponse([], 'Bookmark has been removed from the list.', Response::HTTP_OK);
+        }
+
         try {
             $bookmark = $this->bookmarkService->addRemoveBookmark($request);
             return $this->successResponse($bookmark, 'Bookmarked has been added successfully', Response::HTTP_OK);
