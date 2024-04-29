@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Subject;
 use App\Models\Chapter;
 use App\Models\Content;
+use App\Models\Bookmark;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
@@ -43,6 +44,24 @@ class ContentService
         ->where('chapters.status', 1)
         ->where('chapters.subject_id', $chapter_id)
         ->get();
+        return $content;
+    }
+
+    public function contentDetailsByID($content_id, Request $request): mixed
+    {
+        $content = Content::select('contents.*', 'categories.name_en as class_name_en', 'categories.name_bn as class_name_bn', 
+        'subjects.name_en as subject_name_en', 'subjects.name_bn as subject_name_bn', 
+        'chapters.name_en as chapter_name_en', 'chapters.name_bn as chapter_name_bn')
+        ->leftJoin('categories', 'categories.id', 'contents.category_id')
+        ->leftJoin('subjects', 'subjects.id', 'contents.subject_id')
+        ->leftJoin('chapters', 'chapters.id', 'contents.chapter_id')
+        ->where('contents.id', $content_id)
+        ->first();
+
+        if($content){
+            $content['is_bookmarked'] = Bookmark::where('user_id', $request->jwt_user['id'])->where("content_id", $content_id)->first() ? true : false;
+        }
+
         return $content;
     }
 

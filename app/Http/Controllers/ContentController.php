@@ -34,6 +34,12 @@ class ContentController extends Controller
         return $this->successResponse($content, 'Content Information', Response::HTTP_OK);
     }
 
+    public function contentDetailsByID($content_id, Request $request)
+    {
+        $content = $this->contentService->contentDetailsByID($content_id, $request);
+        return $this->successResponse($content, 'Content Information', Response::HTTP_OK);
+    }
+
     public function store(ContentRequest $request)
     {
         try {

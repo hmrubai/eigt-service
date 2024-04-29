@@ -19,15 +19,15 @@ class ChapterController extends Controller
         $this->chapterService = $chapterService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $chapter = $this->chapterService->allChapter();
+        $chapter = $this->chapterService->allChapter($request);
         return $this->successResponse($chapter, 'Chapter Information', Response::HTTP_OK);
     }
 
-    public function chapterListBySubject($subject_id = 0)
+    public function chapterListBySubject($subject_id = 0, Request $request)
     {
-        $chapter = $this->chapterService->chapterListBySubjectID($subject_id);
+        $chapter = $this->chapterService->chapterListBySubjectID($subject_id, $request);
         return $this->successResponse($chapter, 'Chapter Information', Response::HTTP_OK);
     }
 

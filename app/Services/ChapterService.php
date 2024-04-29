@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Subject;
 use App\Models\Content;
 use App\Models\Chapter;
+use App\Models\Bookmark;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
@@ -19,7 +20,7 @@ class ChapterService
 {
     use HelperTrait;
 
-    public function allChapter(): mixed
+    public function allChapter(Request $request): mixed
     {
         $chapter = Chapter::select('chapters.*', 'categories.name_en as class_name_en', 'categories.name_bn as class_name_bn', 
         'subjects.name_en as subject_name_en', 'subjects.name_bn as subject_name_bn')
@@ -29,13 +30,24 @@ class ChapterService
         ->get();
 
         foreach ($chapter as $item) {
-            $item->content = Content::where('status', 1)->get();
+
+            $content = Content::where('chapter_id', $item->id)->where('status', 1)->get();
+            foreach ($content as $single_item) {
+                $bookmarked = false;
+                $is_bookmarked = Bookmark::where('user_id', $request->jwt_user['id'])->where("content_id", $single_item->id)->first();
+                if(!empty($is_bookmarked)){
+                    $bookmarked = true;
+                }
+                $single_item->is_bookmarked = $bookmarked;
+            }
+
+            $item->content = $content;
         }
 
         return $chapter;
     }
 
-    public function chapterListBySubjectID($subject_id): mixed
+    public function chapterListBySubjectID($subject_id, Request $request): mixed
     {
         $chapter = Chapter::select('chapters.*', 'categories.name_en as class_name_en', 'categories.name_bn as class_name_bn', 
         'subjects.name_en as subject_name_en', 'subjects.name_bn as subject_name_bn')
@@ -46,7 +58,17 @@ class ChapterService
         ->get();
         
         foreach ($chapter as $item) {
-            $item->content = Content::where('status', 1)->get();
+            $content = Content::where('chapter_id', $item->id)->where('status', 1)->get();
+            foreach ($content as $single_item) {
+                $bookmarked = false;
+                $is_bookmarked = Bookmark::where('user_id', $request->jwt_user['id'])->where("content_id", $single_item->id)->first();
+                if(!empty($is_bookmarked)){
+                    $bookmarked = true;
+                }
+                $single_item->is_bookmarked = $bookmarked;
+            }
+
+            $item->content = $content;
         }
 
         return $chapter;

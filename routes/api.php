@@ -35,6 +35,7 @@ Route::middleware([JWTMiddleware::class])->group(function ()
 
     // Content routes
     Route::get('content-list-by-chapter-id/{chapter_id}', [ContentController::class, 'contentListByChapter'])->name('content.contentListByChapter');
+    Route::get('content-details-by-id/{content_id}', [ContentController::class, 'contentDetailsByID']);
     // Route::post('chapter/{id}', [ContentController::class, 'update'])->name('content.update');
     Route::delete('content/{id}', [ContentController::class, 'destroy'])->name('content.destroy');
     Route::post('content-upload', [ContentController::class, 'store']);
