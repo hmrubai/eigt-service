@@ -17,7 +17,6 @@ use Illuminate\Validation\ValidationException;
  */
 class ChapterService
 {
-
     use HelperTrait;
 
     public function allChapter(): mixed

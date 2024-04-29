@@ -8,6 +8,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Middleware\JWTMiddleware;
 
 Route::middleware([JWTMiddleware::class])->group(function () 
@@ -38,5 +39,9 @@ Route::middleware([JWTMiddleware::class])->group(function ()
     Route::delete('content/{id}', [ContentController::class, 'destroy'])->name('content.destroy');
     Route::post('content-upload', [ContentController::class, 'store']);
     Route::get('content', [ContentController::class, 'index']);
+
+    //Bookmark
+    Route::post('add-remove-bookmark', [BookmarkController::class, 'store']);
+    Route::get('bookmark-list', [BookmarkController::class, 'bookmarkList']);
 
 });
