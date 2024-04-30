@@ -51,6 +51,10 @@ class BookmarkService
         ->whereIn('contents.id', $content_ids)
         ->get();
 
+        foreach ($content as $item) {
+            $item->is_bookmarked = true;
+        }
+
         return $content;
     }
 
