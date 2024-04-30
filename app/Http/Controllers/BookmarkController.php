@@ -30,6 +30,12 @@ class BookmarkController extends Controller
         }
 
         try {
+            $bookmark = Bookmark::where("user_id", $request->jwt_user['id'])->where("content_id", $request->content_id)->first();
+            if (!empty($bookmark)) {
+                $bookmark->delete();
+                return $this->deleteResponse('Bookmark has been removed from the list.', Response::HTTP_OK);
+            }
+
             $bookmark = $this->bookmarkService->addRemoveBookmark($request);
             return $this->successResponse($bookmark, 'Bookmarked has been added successfully', Response::HTTP_OK);
         } catch (\Throwable $th) {

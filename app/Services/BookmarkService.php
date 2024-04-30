@@ -19,27 +19,21 @@ class BookmarkService
 
     public function addRemoveBookmark(Request $request): mixed
     {
-        $bookmark = Bookmark::where("user_id", $request->jwt_user['id'])->where("content_id", $request->content_id)->first();
-        if (!empty($bookmark)) {
-            $bookmark->delete();
-            return $this->successResponse([], 'Bookmark has been removed from the list.', Response::HTTP_OK);
-        }else{
-            DB::beginTransaction();
+        DB::beginTransaction();
 
-            try {
-                $bookmark_data = [
-                    'user_id' => $request->jwt_user['id'],
-                    'content_id' => $request->content_id
-                ];
+        try {
+            $bookmark_data = [
+                'user_id' => $request->jwt_user['id'],
+                'content_id' => $request->content_id
+            ];
 
-                $bookmark_inserted = Bookmark::create($bookmark_data);
+            $bookmark_inserted = Bookmark::create($bookmark_data);
 
-                DB::commit();
-                return $bookmark_inserted;
-            } catch (\Throwable $th) {
-                DB::rollBack();
-                throw $th;
-            }
+            DB::commit();
+            return $bookmark_inserted;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
         }
     }
 
