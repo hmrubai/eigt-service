@@ -50,6 +50,16 @@ class ContentController extends Controller
         }
     }
 
+    public function update(ChapterRequest $request, $id)
+    {
+        try {
+            $content = $this->contentService->updateContent($request, $id);
+            return $this->successResponse($content, 'Content updated successfully', Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return $this->errorResponse($th->getMessage(), 'Something went wrong', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public function destroy(int $id)
     {
         try {
