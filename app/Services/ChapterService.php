@@ -9,6 +9,7 @@ use App\Models\Subject;
 use App\Models\Content;
 use App\Models\Chapter;
 use App\Models\Bookmark;
+use App\Models\UserWatchHistory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
@@ -34,11 +35,20 @@ class ChapterService
             $content = Content::where('chapter_id', $item->id)->where('status', 1)->get();
             foreach ($content as $single_item) {
                 $bookmarked = false;
+                $watched = false;
+
                 $is_bookmarked = Bookmark::where('user_id', $request->jwt_user['id'])->where("content_id", $single_item->id)->first();
+                $is_watched = UserWatchHistory::where('user_id', $request->jwt_user['id'])->where("content_id", $single_item->id)->first();
                 if(!empty($is_bookmarked)){
                     $bookmarked = true;
                 }
+
+                if(!empty($is_watched)){
+                    $watched = true;
+                }
+
                 $single_item->is_bookmarked = $bookmarked;
+                $single_item->is_watched = $watched;
             }
 
             $item->content = $content;
@@ -61,11 +71,20 @@ class ChapterService
             $content = Content::where('chapter_id', $item->id)->where('status', 1)->get();
             foreach ($content as $single_item) {
                 $bookmarked = false;
+                $watched = false;
+                
                 $is_bookmarked = Bookmark::where('user_id', $request->jwt_user['id'])->where("content_id", $single_item->id)->first();
+                $is_watched = UserWatchHistory::where('user_id', $request->jwt_user['id'])->where("content_id", $single_item->id)->first();
                 if(!empty($is_bookmarked)){
                     $bookmarked = true;
                 }
+
+                if(!empty($is_watched)){
+                    $watched = true;
+                }
+
                 $single_item->is_bookmarked = $bookmarked;
+                $single_item->is_watched = $watched;
             }
 
             $item->content = $content;

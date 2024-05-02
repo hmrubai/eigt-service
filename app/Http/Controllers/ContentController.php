@@ -28,9 +28,9 @@ class ContentController extends Controller
         return $this->successResponse($content, 'Content Information', Response::HTTP_OK);
     }
 
-    public function contentListByChapter($chapter_id = 0)
+    public function contentListByChapter($chapter_id = 0, Request $request)
     {
-        $content = $this->contentService->contentListByChapterID($chapter_id);
+        $content = $this->contentService->contentListByChapterID($chapter_id, $request);
         return $this->successResponse($content, 'Content Information', Response::HTTP_OK);
     }
 

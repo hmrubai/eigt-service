@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\UserWatchHistoryController;
 use App\Http\Middleware\JWTMiddleware;
 
 Route::middleware([JWTMiddleware::class])->group(function () 
@@ -44,5 +45,8 @@ Route::middleware([JWTMiddleware::class])->group(function ()
     //Bookmark
     Route::post('add-remove-bookmark', [BookmarkController::class, 'store']);
     Route::get('bookmark-list', [BookmarkController::class, 'bookmarkList']);
+
+    // Watch History 
+    Route::post('add-to-watch-list', [UserWatchHistoryController::class, 'store']);
 
 });

@@ -9,6 +9,7 @@ use App\Models\Subject;
 use App\Models\Chapter;
 use App\Models\Content;
 use App\Models\Bookmark;
+use App\Models\UserWatchHistory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
@@ -33,7 +34,7 @@ class ContentService
         return $content;
     }
 
-    public function contentListByChapterID($chapter_id): mixed
+    public function contentListByChapterID($chapter_id, Request $request): mixed
     {
         $content = Content::select('contents.*', 'categories.name_en as class_name_en', 'categories.name_bn as class_name_bn', 
         'subjects.name_en as subject_name_en', 'subjects.name_bn as subject_name_bn', 
@@ -44,6 +45,12 @@ class ContentService
         ->where('chapters.status', 1)
         ->where('chapters.subject_id', $chapter_id)
         ->get();
+
+        foreach ($content as $item) {
+            $content->is_bookmarked = Bookmark::where('user_id', $request->jwt_user['id'])->where("content_id", $item->id)->first() ? true : false;
+            $content->is_watched = UserWatchHistory::where('user_id', $request->jwt_user['id'])->where("content_id", $item->id)->first() ? true : false;
+        }
+
         return $content;
     }
 
@@ -60,6 +67,7 @@ class ContentService
 
         if($content){
             $content['is_bookmarked'] = Bookmark::where('user_id', $request->jwt_user['id'])->where("content_id", $content_id)->first() ? true : false;
+            $content['is_watched'] = UserWatchHistory::where('user_id', $request->jwt_user['id'])->where("content_id", $content_id)->first() ? true : false;
         }
 
         return $content;
