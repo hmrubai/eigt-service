@@ -11,12 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subjects', function (Blueprint $table) {
+        Schema::create('contents', function (Blueprint $table) {
             $table->id();
             $table->string('name_bn');
             $table->string('name_en')->nullable();
             $table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('subject_id')->unsigned();
+            $table->bigInteger('chapter_id')->unsigned();
+            $table->string('raw_file')->nullable();
+            $table->string('transcoded_file_path')->nullable();
+            $table->string('compressed_file_path')->nullable();
             $table->string('thumbnail')->nullable();
+            $table->enum('content_type', ['Video', 'Document', 'Ebook'])->default('Video');
             $table->boolean('status')->nullable()->default(0);
             $table->bigInteger('created_by')->default(0);
             $table->softDeletesTz($column = 'deleted_at', $precision = 0);
@@ -29,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('contents');
     }
 };

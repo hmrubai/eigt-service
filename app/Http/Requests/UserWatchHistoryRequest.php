@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubjectRequest extends FormRequest
+class UserWatchHistoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,7 @@ class SubjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_bn' => 'required',
-            'class_id' => 'required',
-            'status'  => 'integer'
+            'content_id' => 'required',
         ];
     }
 }

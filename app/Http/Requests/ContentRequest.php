@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubjectRequest extends FormRequest
+class ContentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,10 @@ class SubjectRequest extends FormRequest
         return [
             'name_bn' => 'required',
             'class_id' => 'required',
+            'subject_id' => 'required',
+            'chapter_id' => 'required',
+            'content_type' => 'required',
+            'raw_file' => 'required',
             'status'  => 'integer'
         ];
     }

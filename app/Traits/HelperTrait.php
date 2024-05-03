@@ -17,6 +17,16 @@ trait HelperTrait
         return response()->json($array, $statusCode);
     }
 
+    protected function deleteResponse($message, $statusCode = 200): JsonResponse
+    {
+        $array = [
+            'data' => (object)null,
+            'message' => $message,
+        ];
+
+        return response()->json($array, $statusCode);
+    }
+
     protected function errorResponse($error, $message, $statusCode): JsonResponse
     {
         $array = [

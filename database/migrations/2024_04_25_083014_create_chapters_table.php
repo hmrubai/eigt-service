@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subjects', function (Blueprint $table) {
+        Schema::create('chapters', function (Blueprint $table) {
             $table->id();
             $table->string('name_bn');
             $table->string('name_en')->nullable();
             $table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('subject_id')->unsigned();
             $table->string('thumbnail')->nullable();
             $table->boolean('status')->nullable()->default(0);
             $table->bigInteger('created_by')->default(0);
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('chapters');
     }
 };
